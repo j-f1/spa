@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>**MINIMAL** CSS-only SPA</title>
+    <style>
+      :not(.default).page:not(:target),.page:target~.default.page{display:none;}
+    </style>
+  </head>
+  <body>
+    <section class="page" id="page">
+      <a href="#">Back</a>
+    </section>
+    <section class="default page">
+      <a href="#page">Go</a>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Single Page App! NO JS!</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" charset="utf-8"></script> <!-- Well, I guess I lied a little. But, this isn’t strictly speaking necessary. Instead, it saves your sanity by auto-filling the necessary prefixes at runtime. -->
+    <style media="screen">
+      nav, .page .content {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .page {
+        width: 100%;
+      }
+      .breadcrumbs {
+        list-style-type: none;
+        padding: 0;
+        display: inline-block;
+      }
+      .breadcrumbs li {
+        display: inline-block;
+      }
+      .breadcrumbs li:not(:first-child)::before {
+        content: '› ';
+      }
+    </style>
+    <style>
+      .crossfade .page {
+        transition: opacity 0.2s;
+        position: absolute; /* so everything's in the same y area. */
+      }
+      .crossfade .page,
+      .crossfade .page:target ~ .default.page {
+        opacity: 0; /* Choose your own invisibilty potion if you like */
+        pointer-events: none; /* No clicking what you can't see! */
+      }
+      .crossfade .default.page, .crossfade .page:target {
+        opacity: 1; /* reverse the invisibility potion */
+        pointer-events: inherit; /* ...and the clickban */
+      }
+    </style>
+    <style>
+      .flipX .page, .flipY .page {
+        transition: transform 0.2s;
+        position: absolute; /* so everything's in the same y area. */
+        backface-visibility: hidden;
+      }
+      .flipX .page,
+      .flipX .page:target ~ .default.page,
+      .flipY .page,
+      .flipY .page:target ~ .default.page {
+        pointer-events: none; /* No clicking what you can't see! */
+      }
+      .flipX .page,
+      .flipX .page:target ~ .default.page {
+        transform: rotateX(180deg);
+      }
+      .flipY .page,
+      .flipY .page:target ~ .default.page {
+        transform: rotateY(180deg);
+      }
+      .flipX .default.page, .flipX .page:target,
+      .flipY .default.page, .flipY .page:target {
+        transform: none;
+        pointer-events: inherit;
+      }
+    </style>
+    <style>
+      .float .page {
+        transition: opacity 0.2s, transform 0.2s;
+        position: absolute;
+      }
+      .float .page,
+      .float .page:target ~ .default.page {
+        transform: translateY(1em);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .float .default.page, .float .page:target {
+        transform: none;
+        opacity: 1;
+        pointer-events: inherit;
+      }
+    </style>
+  </head>
+  <body class="float">
+    <nav>
+      <a href="#/">Home</a> &middot; <a href="#/about">About</a>
+    </nav>
+    <section class="page" id="/about/more">
+      <div class="content">
+        <ul class="breadcrumbs">
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/about">About</a></li>
+          <li>Más!</li>
+        </ul>
+        <p>
+          More more. More más. Más more. Más más.
+        </p>
+        <p>
+          <a href="#/about/more/hello, world">Hello, World!</a> &middot; <a href="#/about/more/mañana">Tomorrow</a>
+        </p>
+      </div>
+    </section>
+    <section class="page" id="/about">
+      <div class="content">
+        <ul class="breadcrumbs">
+          <li><a href="#/">Home</a></li>
+          <li>About</li>
+        </ul>
+        <p>
+          All about me. <a href="#/about/more">Más!</a>
+        </p>
+      </div>
+    </section>
+    <section class="page" id="/about/more/hello, world">
+      <div class="content">
+        <ul class="breadcrumbs">
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/about">About</a></li>
+          <li><a href="#/about/more">Más!</a></li>
+          <li>Hello, World!</li>
+        </ul>
+        <p>
+          Yay!!! Spaces work too!
+        </p>
+      </div>
+    </section>
+    <section class="page" id="/about/more/mañana">
+      <div class="content">
+        <ul class="breadcrumbs">
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/about">About</a></li>
+          <li><a href="#/about/more">Más!</a></li>
+          <li>Tomorrow</li>
+        </ul>
+        <p>
+          And <s>Punycode: <code>xn--maana-pta</code></s> UTF-8: mañana.
+        </p>
+      </div>
+    </section>
+    <section class="default page" id="/"> <!-- ALWAYS LAST -->
+      <div class="content">
+        <ul class="breadcrumbs">
+          <li>Home</li>
+        </ul>
+        <h1>
+          Home!
+        </h1>
+      </div>
+    </section>
+  </body>
+</html>
