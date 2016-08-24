@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Single Page App! NO JS!</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" charset="utf-8"></script> <!-- Well, I guess I lied a little. But, this isn’t strictly speaking necessary. Instead, it saves your sanity by auto-filling the necessary prefixes at runtime. -->
+    <script src="spa.js" charset="utf-8"></script> <!-- Fully optional -->
     <style media="screen">
       nav, .page .content {
         text-align: center;
@@ -86,9 +87,9 @@
   </head>
   <body class="float">
     <nav>
-      <a href="#/">Home</a> &middot; <a href="#/about">About</a>
+      <a href="#/">Home</a> &middot; <a href="#/about">About</a> // <button id="btn">Enable SPA.js</button>
     </nav>
-    <section class="page" id="/about/more">
+    <section class="page" id="/about/more" data-title="About: More">
       <div class="content">
         <ul class="breadcrumbs">
           <li><a href="#/">Home</a></li>
@@ -103,7 +104,7 @@
         </p>
       </div>
     </section>
-    <section class="page" id="/about">
+    <section class="page" id="/about" data-title="About">
       <div class="content">
         <ul class="breadcrumbs">
           <li><a href="#/">Home</a></li>
@@ -114,7 +115,7 @@
         </p>
       </div>
     </section>
-    <section class="page" id="/about/more/hello, world">
+    <section class="page" id="/about/more/hello, world" data-title="Hello, World!">
       <div class="content">
         <ul class="breadcrumbs">
           <li><a href="#/">Home</a></li>
@@ -127,7 +128,7 @@
         </p>
       </div>
     </section>
-    <section class="page" id="/about/more/mañana">
+    <section class="page" id="/about/more/mañana" data-title="Mañana">
       <div class="content">
         <ul class="breadcrumbs">
           <li><a href="#/">Home</a></li>
@@ -140,7 +141,7 @@
         </p>
       </div>
     </section>
-    <section class="default page" id="/"> <!-- ALWAYS LAST -->
+    <section class="default page" id="/" data-title="Home"> <!-- ALWAYS LAST -->
       <div class="content">
         <ul class="breadcrumbs">
           <li>Home</li>
@@ -150,5 +151,17 @@
         </h1>
       </div>
     </section>
+    <script>
+      SPA.prefix = 'SPA: ';
+      document.getElementById('btn').addEventListener('click', function() {
+        if (SPA.enabled) {
+          SPA.disable();
+          this.innerHTML = 'Enable SPA.js';
+        } else {
+          SPA.enable();
+          this.innerHTML = 'Disable SPA.js';
+        }
+      });
+    </script>
   </body>
 </html>
