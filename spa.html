@@ -4,8 +4,12 @@
     <meta charset="utf-8">
     <title>Single Page App! NO JS!</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" charset="utf-8"></script> <!-- Well, I guess I lied a little. But, this isn’t strictly speaking necessary. Instead, it saves your sanity by auto-filling the necessary prefixes at runtime. -->
-    <script src="spa.js" charset="utf-8"></script> <!-- Fully optional -->
+    <script src="spa.js" charset="utf-8"></script> <!-- Fully optional; sets `document.title` to `SPA.prefix + (current page[data-title])` -->
     <style media="screen">
+      body {
+        margin-left: 0;
+        margin-right: 0;
+      }
       nav, .page .content {
         text-align: center;
         margin-left: auto;
@@ -25,6 +29,18 @@
       .breadcrumbs li:not(:first-child)::before {
         content: '› ';
       }
+      .transition {
+        font-family: 'Fira Code', monospace;
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .transition.active {
+        font-weight: bold;
+      }
+    </style>
+    <style>
+    .none :not(.default).page:not(:target),.none .page:target~.default.page{display:none}
     </style>
     <style>
       .crossfade .page {
@@ -88,6 +104,7 @@
   <body class="float">
     <nav>
       <a href=".">Back to index</a> &middot; <a href="#/">Home</a> &middot; <a href="#/about">About</a> // <button id="btn">Enable SPA.js</button>
+      <p>Transition: <a class="transition">none</a> &middot; <a class="transition">crossfade</a> &middot; <a class="transition">flipX</a> &middot; <a class="transition">flipY</a> &middot; <a class="transition active">float</a></p>
     </nav>
     <section class="page" id="/about/more" data-title="About: More">
       <div class="content">
@@ -152,6 +169,13 @@
       </div>
     </section>
     <script>
+      Array.from(document.querySelectorAll('.transition')).forEach(function(el) {
+        el.addEventListener('click', function() {
+          document.body.className = el.innerHTML;
+          Array.from(document.querySelectorAll('.transition')).forEach(function(el) {el.className = el.className.replace(/\s+active/, '');});
+          el.className += ' active';
+        });
+      });
       SPA.prefix = 'SPA: ';
       document.getElementById('btn').addEventListener('click', function() {
         if (SPA.enabled) {
